@@ -1,0 +1,15 @@
+VisualElement {
+}
+
+.mainContainerTitle {
+}
+
+.mainContainerButton {
+}
+
+.mainContanerMenu {
+}
+
+.hidden{
+	display: none !important;
+}
