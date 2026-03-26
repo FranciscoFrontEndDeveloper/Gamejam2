@@ -1,3 +1,4 @@
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,8 +16,7 @@ public class FollowPlayer : MonoBehaviour
     Rigidbody rb;
 
     public Transform player;
-    public Transform[] patrolPoints;
-
+    public Transform[] patrolPoints ;
     int patrolIndex = 0;
     public float speed = 5f;
     public float detectionDistance = 10f;
@@ -28,9 +28,9 @@ public class FollowPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         agent.updatePosition = false;
-        agent.updateRotation = false;
+       // agent.updateRotation = false;
 
-        currentState = EnemyState.Patrol;
+        currentState = EnemyState.Chase;
 
         StartCoroutine(StateMachine());
     }
@@ -88,6 +88,7 @@ public class FollowPlayer : MonoBehaviour
     }
     void Chase()
     {
+        if(player == null) return;
         agent.SetDestination(player.position);
         Move();
 
@@ -95,7 +96,7 @@ public class FollowPlayer : MonoBehaviour
 
         if (dist < fleeDistance)
         {
-            currentState = EnemyState.Flee;
+           // currentState = EnemyState.Flee;
         }
     }
 
