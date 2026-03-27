@@ -14,6 +14,7 @@ public class MainScript : MonoBehaviour
     private Button newGameButton;
     private Button quitGameButton;
     private Button settingsGameButton;
+    private Button exitButton;
     private InputSystem_Actions controls;
 
     private void Awake()
@@ -31,13 +32,15 @@ public class MainScript : MonoBehaviour
         newGameButton = root.Q<Button>("NewGameButton");
         quitGameButton = root.Q<Button>("QuitButton");
         settingsGameButton = root.Q<Button>("settingsButton");
+        exitButton = root.Q<Button>("ExitButton");
+
 
         // Seguridad: comprobar nulos y evitar excepciones si faltan elementos
         if (enterButton != null) enterButton.clicked += ToggleMenu;
         if (newGameButton != null) newGameButton.clicked += startGame;
         if (quitGameButton != null) quitGameButton.clicked += QuitGame;
         if (settingsGameButton != null) settingsGameButton.clicked += SettingsGame;
-
+        if (exitButton != null) exitButton.clicked += ToggleSettings;
         controls.UI.Confirm.performed += confirmEnter;
         controls.UI.Enable();
 
@@ -51,7 +54,7 @@ public class MainScript : MonoBehaviour
         if (newGameButton != null) newGameButton.clicked -= startGame;
         if (quitGameButton != null) quitGameButton.clicked -= QuitGame;
         if (settingsGameButton != null) settingsGameButton.clicked -= SettingsGame;
-
+        if (exitButton != null) exitButton.clicked -= ToggleSettings;
         controls.UI.Confirm.performed -= confirmEnter;
         controls.UI.Disable();
     }
@@ -85,7 +88,6 @@ public class MainScript : MonoBehaviour
 
     private void SettingsGame()
     {
-        Debug.Log("settings");
 
         // Si no existe settingsContainer, salir y loggear
         if (menuContainer == null || settingsContainer == null)
@@ -94,6 +96,16 @@ public class MainScript : MonoBehaviour
             return;
         }
 
+        bool isMenuVisible = menuContainer.resolvedStyle.display != DisplayStyle.None;
+
+        // Si el menú está visible, ocultarlo y mostrar settings. Si no, revertir.
+        menuContainer.style.display = isMenuVisible ? DisplayStyle.None : DisplayStyle.Flex;
+        settingsContainer.style.display = isMenuVisible ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    private void ToggleSettings()
+    {
+        Debug.Log("toggle settings");
         bool isMenuVisible = menuContainer.resolvedStyle.display != DisplayStyle.None;
 
         // Si el menú está visible, ocultarlo y mostrar settings. Si no, revertir.

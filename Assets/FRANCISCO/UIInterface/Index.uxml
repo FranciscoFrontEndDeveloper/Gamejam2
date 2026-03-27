@@ -11,7 +11,7 @@
             <ui:Button text="Quit Game" name="QuitButton"/>
         </ui:VisualElement>
         <ui:VisualElement name="SettingsContainer" class="settingsContainer" style="flex-grow: 1; display: none;">
-            <ui:Button text="cerrar" name="closeSettings"/>
+            <ui:Button text="cerrar" name="ExitButton"/>
             <ui:Label text="Settings"/>
         </ui:VisualElement>
     </ui:VisualElement>
