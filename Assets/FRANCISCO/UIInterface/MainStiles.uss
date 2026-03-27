@@ -1,0 +1,21 @@
+VisualElement {
+}
+
+.mainContainerTitle {
+}
+
+.mainContainerButton {
+}
+
+.mainContanerMenu {
+}
+
+.hidden {
+    display: none;
+}
+
+.settingsContainer {
+}
+
+.pauseContainer {
+}
