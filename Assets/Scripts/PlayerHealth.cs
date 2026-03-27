@@ -31,7 +31,14 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0f)
         {
             Debug.Log("Jugador sin vida");
-            // aquí puedes añadir lógica de muerte, reinicio, etc.
+            GameOverManager gm = FindObjectOfType<GameOverManager>();
+            if (gm != null)
+            {
+                gm.ShowGameOver();
+            }
+
+
+
         }
     }
 }
