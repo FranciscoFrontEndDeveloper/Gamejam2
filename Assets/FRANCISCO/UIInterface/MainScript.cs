@@ -37,7 +37,7 @@ public class MainScript : MonoBehaviour
         quitGameButton = root.Q<Button>("QuitButton");
         settingsGameButton = root.Q<Button>("settingsButton");
         exitButton = root.Q<Button>("ExitButton");
-
+        if (settingsGameButton != null) settingsGameButton.clicked += SettingsGame;
 
         // Seguridad: comprobar nulos y evitar excepciones si faltan elementos
         if (enterButton != null) enterButton.clicked += ToggleMenu;
