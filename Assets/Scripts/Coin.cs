@@ -7,6 +7,12 @@ public class Coin : MonoBehaviour
     [SerializeField] private float floatFrequency = 2f;
 
     private Vector3 startPos;
+    private CollectManagerr manager;
+
+    public void SetManager(CollectManagerr m)
+    {
+        manager = m;
+    }
 
     private void Start()
     {
@@ -25,7 +31,15 @@ public class Coin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FindObjectOfType<CollectManagerr>().OnCoinCollected();
+            if (manager != null)
+            {
+                manager.OnCoinCollected();
+            }
+            else
+            {
+                Debug.LogError("Manager no asignado a la moneda");
+            }
+
             Destroy(gameObject);
         }
     }

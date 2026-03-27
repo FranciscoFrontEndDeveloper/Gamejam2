@@ -5,12 +5,25 @@ public class CollectManagerr : MonoBehaviour
 {
     [Header("Prefabs y referencias")]
     [SerializeField] private GameObject coinPrefab;
-    [SerializeField] private TMP_Text coinMessage;   // Texto para "Find the coin!!!"
-    [SerializeField] private TMP_Text winMessage;    // Texto grande para "¡GANASTE!"
+    [SerializeField] private GameObject explosionEffect;
+
+    [Header("UI")]
+    [SerializeField] private GameObject coinPanel;
+    [SerializeField] private TMP_Text coinText;
+    [SerializeField] private GameObject winPanel;
 
     private int brokeCount = 0;
     private int coinCount = 0;
-    private bool waitingForCoin = false;
+    private int activeCoins = 0;
+
+    private void Start()
+    {
+        if (coinPanel != null)
+            coinPanel.SetActive(false);
+
+        if (winPanel != null)
+            winPanel.SetActive(false);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -30,68 +43,80 @@ public class CollectManagerr : MonoBehaviour
 
     private void HandleBroke(GameObject brokeObj)
     {
-        if (waitingForCoin) return;
-
         brokeCount++;
+
+        // 💥 PARTÍCULAS
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, brokeObj.transform.position, Quaternion.identity);
+        }
+
         Destroy(brokeObj);
 
         if (brokeCount % 5 == 0)
         {
-            waitingForCoin = true;
             SpawnCoinNearPlayer();
-            ShowCoinMessage();
         }
     }
 
     private void SpawnCoinNearPlayer()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         if (player == null)
         {
-            Debug.LogWarning("No se encontró el objeto con tag Player");
+            Debug.LogWarning("No se encontró el Player");
             return;
         }
 
         Vector3 playerPos = player.transform.position;
 
-        float minDistance = 2f;
-        float maxDistance = 5f;
         float angle = Random.Range(0f, 360f);
-        float distance = Random.Range(minDistance, maxDistance);
+        float distance = Random.Range(2f, 5f);
 
-        float offsetX = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
-        float offsetZ = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
+        float x = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
+        float z = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
 
-        Vector3 spawnPos = new Vector3(
-            playerPos.x + offsetX,
-            1f,
-            playerPos.z + offsetZ
-        );
+        Vector3 spawnPos = new Vector3(playerPos.x + x, 1f, playerPos.z + z);
 
-        Quaternion uprightRotation = Quaternion.Euler(90f, 0f, 0f);
-        Instantiate(coinPrefab, spawnPos, uprightRotation);
-    }
+        GameObject coin = Instantiate(coinPrefab, spawnPos, Quaternion.Euler(90f, 0f, 0f));
 
-    private void ShowCoinMessage()
-    {
-        if (coinMessage != null)
+        Coin coinScript = coin.GetComponent<Coin>();
+        if (coinScript != null)
         {
-            coinMessage.gameObject.SetActive(true);
-            coinMessage.text = "Find the coin!!!";
+            coinScript.SetManager(this);
         }
+
+        activeCoins++;
+        ShowCoinPanel();
     }
 
-    private void HideCoinMessage()
+    private void ShowCoinPanel()
     {
-        if (coinMessage != null)
-            coinMessage.gameObject.SetActive(false);
+        if (coinPanel != null)
+            coinPanel.SetActive(true);
+
+        if (coinText != null)
+            coinText.text = "Find the coin!!!";
+    }
+
+    private void HideCoinPanel()
+    {
+        if (coinPanel != null)
+            coinPanel.SetActive(false);
     }
 
     public void OnCoinCollected()
     {
         coinCount++;
-        waitingForCoin = false;
-        HideCoinMessage();
+        activeCoins--;
+
+        Debug.Log("Monedas: " + coinCount);
+
+        if (activeCoins <= 0)
+        {
+            HideCoinPanel();
+        }
 
         if (coinCount >= 3)
         {
@@ -101,15 +126,17 @@ public class CollectManagerr : MonoBehaviour
 
     private void WinGame()
     {
-        Debug.Log("You win!");
-        Time.timeScale = 0f;
+        Debug.Log("GANASTE 🔥");
 
-        if (winMessage != null)
+        if (winPanel != null)
         {
-            winMessage.gameObject.SetActive(true);
-            winMessage.text = "¡GANASTE!";
-            winMessage.fontSize = 100; // tamaño grande
-            winMessage.alignment = TextAlignmentOptions.Center;
+            winPanel.SetActive(true);
         }
+        else
+        {
+            Debug.LogError("winPanel NO asignado");
+        }
+
+        Time.timeScale = 0f;
     }
 }
