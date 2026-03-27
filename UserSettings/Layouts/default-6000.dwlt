@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 40
+  controlID: 42
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 38
+  controlID: 40
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 112}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 39
+  controlID: 41
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -654,7 +654,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -1127,9 +1127,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 1.151485, y: 1.0231147, z: 0.15089893}
+    m_Target: {x: -1.0323659, y: 0.808063, z: 7.845513}
     speed: 2
-    m_Value: {x: 1.151485, y: 1.0231147, z: 0.15089893}
+    m_Value: {x: -1.0323659, y: 0.808063, z: 7.845513}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1175,13 +1175,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.014990274, y: -0.9812042, z: 0.08498063, w: -0.17273436}
+    m_Target: {x: -0.17827952, y: -0.13274862, z: 0.02423782, w: -0.9747173}
     speed: 2
-    m_Value: {x: 0.014990273, y: 0.98120415, z: -0.08498063, w: 0.17273436}
+    m_Value: {x: -0.17827952, y: -0.13274862, z: 0.02423782, w: -0.9747174}
   m_Size:
-    m_Target: 4.762654
+    m_Target: 1.1735694
     speed: 2
-    m_Value: 4.762654
+    m_Value: 1.1735694
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1260,17 +1260,39 @@ MonoBehaviour:
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -74586
-      - m_Data: -30768
-      - m_Data: -30654
-      - m_Data: -30316
-      - m_Data: -15022
-      - m_Data: -14924
-      - m_Data: -7630
-      - m_Data: -7352
+      - m_Data: -42136
+      - m_Data: -37664
+      - m_Data: -34682
+      - m_Data: -34246
+      - m_Data: -32230
+      - m_Data: -31918
+      - m_Data: -29934
+      - m_Data: -22076
+      - m_Data: -21580
+      - m_Data: -19630
+      - m_Data: -18928
+      - m_Data: -17426
+      - m_Data: -17046
+      - m_Data: -15464
+      - m_Data: -15090
+      - m_Data: -13434
+      - m_Data: -11082
+      - m_Data: -8084
+      - m_Data: -3626
       - m_Data: -1300
-      - m_Data: 60814
-      - m_Data: 60976
+      - m_Data: 55354
+      - m_Data: 63934
+      - m_Data: 67460
+      - m_Data: 67580
+      - m_Data: 68058
+      - m_Data: 68550
+      - m_Data: 72122
+      - m_Data: 72202
+      - m_Data: 76824
+      - m_Data: 77644
+      - m_Data: 77794
+      - m_Data: 95074
+      - m_Data: 100482
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1345,7 +1367,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Materials
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1355,24 +1377,23 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Materials
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\#UNITY Projects\Gamejam2
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 70}
     m_SelectedIDs:
-    - m_Data: 46870
+    - m_Data: 126308
     m_LastClickedID:
-      m_Data: 46870
+      m_Data: 126308
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 48788
-    - m_Data: 48790
-    - m_Data: 48792
-    - m_Data: 48794
+    - m_Data: 49212
+    - m_Data: 49214
+    - m_Data: 49216
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1405,10 +1426,9 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 48788
-    - m_Data: 48790
-    - m_Data: 48792
-    - m_Data: 48794
+    - m_Data: 49212
+    - m_Data: 49214
+    - m_Data: 49216
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1435,8 +1455,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: []
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs:
+    - m_Data: -42136
+    m_LastClickedInstanceID: -42136
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 47932
