@@ -10,7 +10,9 @@ public class MainScript : MonoBehaviour
     private VisualElement titleContainer;
     private VisualElement menuContainer;
     private VisualElement settingsContainer;
+    private VisualElement pauseContainer;
     private Button enterButton;
+    private Button pauseButton;
     private Button newGameButton;
     private Button quitGameButton;
     private Button settingsGameButton;
@@ -28,7 +30,9 @@ public class MainScript : MonoBehaviour
         titleContainer = root.Q<VisualElement>("TitleContainer");
         menuContainer = root.Q<VisualElement>("MenuContainer");
         settingsContainer = root.Q<VisualElement>("SettingsContainer");
+        pauseContainer = root.Q<VisualElement>("PauseContainer");
         enterButton = root.Q<Button>("EnterButton");
+        pauseButton = root.Q<Button>("PauseButton");
         newGameButton = root.Q<Button>("NewGameButton");
         quitGameButton = root.Q<Button>("QuitButton");
         settingsGameButton = root.Q<Button>("settingsButton");
@@ -37,25 +41,30 @@ public class MainScript : MonoBehaviour
 
         // Seguridad: comprobar nulos y evitar excepciones si faltan elementos
         if (enterButton != null) enterButton.clicked += ToggleMenu;
+        if (pauseButton != null) pauseButton.clicked += TogglePause;
         if (newGameButton != null) newGameButton.clicked += startGame;
         if (quitGameButton != null) quitGameButton.clicked += QuitGame;
         if (settingsGameButton != null) settingsGameButton.clicked += SettingsGame;
         if (exitButton != null) exitButton.clicked += ToggleSettings;
         controls.UI.Confirm.performed += confirmEnter;
+        controls.UI.Pause.performed += EscapePause;
         controls.UI.Enable();
 
         if (enterButton != null) enterButton.focusable = false;
+        if (pauseButton != null) pauseButton.focusable = false;
     }
 
     private void OnDisable()
     {
         // Desuscribir eventos para evitar fugas
         if (enterButton != null) enterButton.clicked -= ToggleMenu;
+        if (pauseButton != null) pauseButton.clicked -= TogglePause;
         if (newGameButton != null) newGameButton.clicked -= startGame;
         if (quitGameButton != null) quitGameButton.clicked -= QuitGame;
         if (settingsGameButton != null) settingsGameButton.clicked -= SettingsGame;
         if (exitButton != null) exitButton.clicked -= ToggleSettings;
         controls.UI.Confirm.performed -= confirmEnter;
+        controls.UI.Pause.performed -= EscapePause;
         controls.UI.Disable();
     }
 
@@ -84,6 +93,21 @@ public class MainScript : MonoBehaviour
         if (menuContainer != null) menuContainer.style.display = isTitleVisible ? DisplayStyle.Flex : DisplayStyle.None;
 
         Debug.Log("Cambiando visibilidad directamente");
+    }
+
+    private void EscapePause(InputAction.CallbackContext context)
+    {
+        TogglePause();
+    }
+
+    private void TogglePause()
+    {
+        bool isTitleVisible = titleContainer != null && titleContainer.resolvedStyle.display != DisplayStyle.None;
+
+        if (titleContainer != null) titleContainer.style.display = isTitleVisible ? DisplayStyle.None : DisplayStyle.Flex;
+        if (menuContainer != null) menuContainer.style.display = isTitleVisible ? DisplayStyle.Flex : DisplayStyle.None;
+
+        Debug.Log("pausa juego");
     }
 
     private void SettingsGame()
