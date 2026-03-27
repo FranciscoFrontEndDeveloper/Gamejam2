@@ -14,6 +14,7 @@ public class FollowPlayer : MonoBehaviour
 
     NavMeshAgent agent;
     Rigidbody rb;
+    [SerializeField] float rotationVelocity = 2.5f;
 
     public Transform player;
     public Transform[] patrolPoints ;
@@ -30,32 +31,28 @@ public class FollowPlayer : MonoBehaviour
         agent.updatePosition = false;
        // agent.updateRotation = false;
 
-        currentState = EnemyState.Chase;
+        //currentState = EnemyState.Chase;
 
-        StartCoroutine(StateMachine());
     }
 
-    IEnumerator StateMachine()
-    {
-        while (true)
+    void FixedUpdate() { 
+        
+        switch (currentState)
         {
-            switch (currentState)
-            {
-                case EnemyState.Patrol:
-                    Patrol();
-                    break;
+            case EnemyState.Patrol:
+                Patrol();
+                break;
 
-                case EnemyState.Chase:
-                    Chase();
-                    break;
+            case EnemyState.Chase:
+                Chase();
+                break;
 
-                case EnemyState.Flee:
-                    Flee();
-                    break;
-            }
-
-            yield return new WaitForFixedUpdate();
+            case EnemyState.Flee:
+                Flee();
+                break;
         }
+
+        
     }
     void Move()
     {
@@ -63,11 +60,22 @@ public class FollowPlayer : MonoBehaviour
         {
             Vector3 dir = (agent.nextPosition - transform.position).normalized;
 
-            rb.linearVelocity = new Vector3(
-                dir.x * speed,
-                rb.linearVelocity.y,
-                dir.z * speed
-            );
+            // ignorar inclinación vertical
+            dir.y = 0;
+
+            if (dir != Vector3.zero)
+            {
+                // rotación suave
+                Quaternion targetRotation = Quaternion.LookRotation(dir);
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    targetRotation,
+                    rotationVelocity * Time.fixedDeltaTime // velocidad de giro
+                );
+            }
+
+            // moverse SOLO hacia adelante (no lateral)
+            rb.linearVelocity = transform.forward * speed + new Vector3(0, rb.linearVelocity.y, 0);
 
             agent.nextPosition = transform.position;
         }
@@ -75,6 +83,8 @@ public class FollowPlayer : MonoBehaviour
 
     void Flee()
     {
+        
+        if(player == null) return;
         Vector3 dir = (transform.position - player.position).normalized;
         Vector3 target = transform.position + dir * 5f;
 
@@ -113,7 +123,7 @@ public class FollowPlayer : MonoBehaviour
         }
 
         // cambio de estado
-        if (Vector3.Distance(transform.position, player.position) < detectionDistance)
+        if (player!=null && Vector3.Distance(transform.position, player.position) < detectionDistance)
         {
             currentState = EnemyState.Chase;
         }
@@ -136,6 +146,6 @@ public class FollowPlayer : MonoBehaviour
     }
     void Jump()
     {
-        rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+       // rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
     }
 }
