@@ -139,7 +139,7 @@ public class MainScript : MonoBehaviour
 
     private void startGame()
     {
-        SceneManager.LoadScene("escena1");
+        SceneManager.LoadScene("Rodrick_Scene");
     }
 
     private void QuitGame()
