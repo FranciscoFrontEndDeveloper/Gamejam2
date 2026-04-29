@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scenes/InterfazPausa/PauseMenu.uss?fileID=7433441132597879392&amp;guid=ec8df98bc4c18b948943f0672b67d2da&amp;type=3#PauseMenu"/>
+    <ui:VisualElement name="PauseContainer" class="pauseContainer" style="flex-grow: 1; display: none; background-color: rgb(255, 235, 4);">
+        <ui:Label text="Pause" style="-unity-text-align: upper-center;"/>
+        <ui:Button text="Settings" name="pauseSettings"/>
+        <ui:Button text="Quit Game" name="pauseQuit"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="SettingsContainer" class="settingsContainer" style="flex-grow: 1; display: none;">
+        <ui:Button text="cerrar" name="ExitButton"/>
+        <ui:Label text="Settings"/>
+    </ui:VisualElement>
+</ui:UXML>
